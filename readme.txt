@@ -8,4 +8,7 @@ En el repositorio se cuentan con los archivos fuentes del proyecto Backend con l
 
 Solamente se requiere descargar el proyecto e importar hacia el IDE de su preferencia.
 
+Así mismo se incluye la colección de servicios de Postman
+
+Y el archivo YAML con la documentación de los servicios REST
 
