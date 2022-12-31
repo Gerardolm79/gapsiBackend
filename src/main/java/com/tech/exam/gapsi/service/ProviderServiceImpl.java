@@ -45,16 +45,10 @@ public class ProviderServiceImpl implements IProviderService{
     
 
     @Override
-    public String saveProvider(Provider provider) {
-        
-        
-            boolean result = FileUtils.saveProvider(provider);
-            if(result){
-                return "Provider added successfully...";
-            }else{
-                return "Provider already exists...";
-            }
-        
+    public Provider saveProvider(Provider provider) {
+      
+            return FileUtils.saveProvider(provider);
+            
     }
 
     @Override

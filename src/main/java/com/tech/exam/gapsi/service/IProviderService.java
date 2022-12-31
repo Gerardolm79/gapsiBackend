@@ -12,7 +12,7 @@ public interface IProviderService {
     
     public ProviderPageable findByPage(int page);
     
-    public String saveProvider(Provider provider);
+    public Provider saveProvider(Provider provider);
     
     public String deleteProvider(String name);
     

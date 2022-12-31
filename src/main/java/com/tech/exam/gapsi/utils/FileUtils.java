@@ -15,13 +15,13 @@ import java.util.List;
 
 public class FileUtils {
     
-    public static boolean writeData(String provider){
+    public static boolean writeData(Provider provider){
         File file = new File("bd.json");
         FileWriter writer;
         try{
             writer = new FileWriter(file, true);
             var printW = new PrintWriter(writer);
-            printW.println(provider + ", Active" );
+            printW.println(provider.toString() + ", Active" );
             printW.close();
             writer.close();
             return true;
@@ -81,7 +81,7 @@ public class FileUtils {
         return providers;
     }
     
-    public static boolean saveProvider(Provider provider) {
+    public static Provider saveProvider(Provider provider) {
         File file = new File("bd.json");
         FileReader reader;
         boolean result = true;
@@ -99,6 +99,7 @@ public class FileUtils {
                 
                 if(!data.trim().equals("") && provider.getCommercialName().equalsIgnoreCase(element[1].trim())){
                     System.out.println("Provider already exists ..."  + provider.toString());
+                    provider.setId(Long.parseLong(element[0]));
                     result = false;
                     break;
                 }
@@ -108,7 +109,10 @@ public class FileUtils {
             reader.close();
             if(result){
                 provider.setId(count);
-                return writeData(provider.toString());
+                writeData(provider);                
+                return provider;
+            }else{
+                return provider;
             }
         } catch (FileNotFoundException ex) {
             result = false;
@@ -117,15 +121,14 @@ public class FileUtils {
             result = false;
             ex.printStackTrace();
         }
-        return result;
+        return provider;
     }
     
     
     public static boolean deleteData(long id, String name ) {
         File file = new File("bd.json");
         FileReader reader;
-        Provider provider;
-        List<Provider> providers=new ArrayList<>();
+        
         boolean result = false;
         
         try {
@@ -136,19 +139,17 @@ public class FileUtils {
             String[] element;
             while( (line=bReader.readLine())!=null){
                 
-                
-                provider = new Provider();
                 System.out.println("data:" + data);
                 element = line.split(",");
                 System.out.println(id + "-" + element[0] + " / " + name + "-" + element[1]);
                 if( id>=0 && Long.parseLong(element[0])==id ){
                     result = true;
                     line = line.replace("Active", "Deleted");
-                    continue;
+                    
                 }else if( name!=null && name.equalsIgnoreCase(element[1].trim()) ){
                     result = true;
                     line = line.replace("Active", "Deleted");
-                    continue;
+                    
                 }
                     data += line + "\n";
                 

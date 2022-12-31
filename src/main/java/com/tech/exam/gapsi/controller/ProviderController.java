@@ -46,7 +46,7 @@ public class ProviderController {
     
     
     @PostMapping("save")
-    public String saveProvider(@RequestBody Provider provider){
+    public Provider saveProvider(@RequestBody Provider provider){
         return providerSvc.saveProvider(provider);
     }
     
